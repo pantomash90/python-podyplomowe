@@ -14,5 +14,13 @@
   {
     "name": "Quattro Formaggi",
     "price": 35.0
+  },
+  {
+    "name": "Siciliana",
+    "price": 36.0
+  },
+  {
+    "name": "Funghi",
+    "price": 99.0
   }
 ]

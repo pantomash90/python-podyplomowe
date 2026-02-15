@@ -94,6 +94,20 @@ class Order:
     @classmethod
     def reset_id_counter(cls):
         cls._next_id = 1
+    
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "customer": self.customer.to_dict(),
+            "items": self.items
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        order = cls(data["customer"].from_dict())
+        for item in data["items"]:
+            order.add_item(item["pizza"], item["quantity"])
+        return order
 
 
 class OrderManager:
@@ -137,3 +151,24 @@ class OrderManager:
 
     def __iter__(self):
         return iter(self.orders)
+
+    def load_from_file(self, filename):
+        """Wczytuje zamowienia z pliku JSON."""
+        try:
+            with open(filename, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+            self.orders = []
+            for order in data:
+                order = Order(order.get("customer"))
+        except (FileNotFoundError, json.JSONDecodeError):
+            self.orders = []
+
+    def save_to_file(self, filename):
+        """Zapisuje zamowienia do pliku JSON."""
+        try:
+            data = [order.to_dict() for order in self.orders]
+            with open(filename, 'w', encoding='utf-8') as f:
+                json.dump(data, f, indent=2, ensure_ascii=False)
+        except IOError as e:
+            print(f"Błąd zapisu: {e}")
+            raise
