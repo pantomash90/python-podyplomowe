@@ -10,11 +10,14 @@ from .models import Customer
 CUSTOMERS_FILE = os.path.join(DATA_DIR, 'customers.json')
 
 
-def _load_customers():
-    manager = CustomerManager()
-    manager.load_from_file(CUSTOMERS_FILE)
-    return manager
+# def _load_customers():
+#     manager = CustomerManager()
+#     manager.load_from_file(CUSTOMERS_FILE)
+#     return manager
 
+def _load_customers():
+    manager = Customer.objects.all()
+    return manager
 
 # def customer_list(request):
 #     manager = _load_customers()

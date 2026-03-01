@@ -12,20 +12,29 @@ from rozwiazanie_weekend2.exceptions import (
     CustomerNotFoundError,
 )
 
+from .models import Pizza, Customer
+
 MENU_FILE = os.path.join(DATA_DIR, 'menu.json')
 CUSTOMERS_FILE = os.path.join(DATA_DIR, 'customers.json')
 ORDERS_FILE = os.path.join(DATA_DIR, 'orders.json')
 
 
+# def _load_menu():
+#     menu = Menu()
+#     menu.load_from_file(MENU_FILE)
+#     return menu
+
 def _load_menu():
-    menu = Menu()
-    menu.load_from_file(MENU_FILE)
+    menu = Pizza.objects.all()
     return menu
 
+# def _load_customers():
+#     manager = CustomerManager()
+#     manager.load_from_file(CUSTOMERS_FILE)
+#     return manager
 
 def _load_customers():
-    manager = CustomerManager()
-    manager.load_from_file(CUSTOMERS_FILE)
+    manager = Customer.objects.all()
     return manager
 
 

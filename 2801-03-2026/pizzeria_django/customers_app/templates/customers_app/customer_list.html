@@ -26,14 +26,14 @@
             <td>{{ customer.name }}</td>
             <td>{{ customer.phone }}</td>
             <td>
-                {% if customer.discount_percent is not None %}
+                {% if customer.customer_type == "vip" %}
                     <span class="vip-badge">VIP</span>
                 {% else %}
                     Zwykly
                 {% endif %}
             </td>
             <td>
-                {% if customer.discount_percent is not None %}
+                {% if customer.discount_percent > 0 %}
                     {{ customer.discount_percent }}%
                 {% else %}
                     -
